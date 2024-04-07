@@ -66,4 +66,5 @@ ul {
     width: 19rem;
     background-color: var(--component-color);
     border-right: 1px solid var(--line-color);
+    padding: 2rem;
 }

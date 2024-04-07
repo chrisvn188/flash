@@ -1,9 +1,10 @@
+import { createElement } from '../Utils'
 import LogoSrc from '../assets/images/logo.png'
 
 export const Logo = (function () {
-    const logo = new Image()
-    logo.src = LogoSrc
-    logo.alt = 'Flash'
-    logo.classList.add('App__logo')
-    return logo
+    return createElement('img', {
+        src: LogoSrc,
+        alt: 'Flash',
+        class: 'App__logo',
+    })
 })()

@@ -1,8 +1,6 @@
+import { createElement } from '../Utils'
 import { Logo } from './Logo.js'
 
 export const Header = (function (logo) {
-    const header = document.createElement('header')
-    header.classList.add('App__header')
-    header.appendChild(logo)
-    return header
+    return createElement('header', { class: 'App__header' }, logo)
 })(Logo)
