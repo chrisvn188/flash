@@ -24,6 +24,10 @@ module.exports = {
                 test: /\.html$/i,
                 use: 'html-loader',
             },
+            {
+                test: /\.(jpeg|jpg|png|svg)$/i,
+                type: 'asset/resource',
+            },
         ],
     },
 

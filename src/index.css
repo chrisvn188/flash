@@ -30,3 +30,13 @@ ul {
 }
 
 /* CLASS SELECTORS */
+.App__header {
+    background-color: blue;
+    display: grid;
+    place-content: center;
+    padding: 1rem;
+}
+
+.App__logo {
+    width: 7rem;
+}
