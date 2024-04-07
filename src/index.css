@@ -1,3 +1,13 @@
+:root {
+    --primary-color: #6f2cf4;
+    --component-color: #edeeff;
+    --round: 3px;
+    --red: #f42c2c;
+    --yellow: #f4b02c;
+    --green: #4d8f0a;
+    --line-color: #d6d6d6;
+}
+
 /* BASIC CSS RESET */
 *,
 *::before,
@@ -30,13 +40,30 @@ ul {
 }
 
 /* CLASS SELECTORS */
+.App {
+    height: 100vh;
+    display: grid;
+    grid-template-areas:
+        'header header'
+        'sidebar main';
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+}
+
 .App__header {
-    background-color: blue;
+    background-color: var(--primary-color);
     display: grid;
     place-content: center;
     padding: 1rem;
+    grid-area: header;
 }
 
 .App__logo {
     width: 7rem;
+}
+
+.App__sidebar {
+    width: 19rem;
+    background-color: var(--component-color);
+    border-right: 1px solid var(--line-color);
 }
