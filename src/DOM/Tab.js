@@ -1,9 +1,9 @@
 import { createElement } from '../Utils'
 
-export const Tab = (project, isActive) => {
+export const Tab = (project) => {
     return createElement(
         'button',
-        { class: `tab ${isActive ? 'active' : ''}` },
+        { class: `tab ${project.active ? 'active' : ''}` },
         createElement('span', { class: 'tab__label' }, project.title)
     )
 }

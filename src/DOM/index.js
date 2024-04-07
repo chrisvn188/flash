@@ -1,15 +1,8 @@
-import * as Sidebar from './Sidebar'
-import * as Main from './Main'
-import mockData from '../data.json'
-
-let currentProjectIndex = 0
-const projects = mockData
-
-export const getProjects = () => {
-    return projects
-}
+import * as SidebarUI from './Sidebar'
+import * as MainUI from './Main'
+import * as ProjectsLogic from '../Logic/ProjectList'
 
 export const render = () => {
-    Sidebar.renderProjects(projects, currentProjectIndex)
-    Main.renderProjectDetails(projects, currentProjectIndex)
+    SidebarUI.renderProjects(ProjectsLogic.getProjects())
+    MainUI.renderProjectDetails(ProjectsLogic.getActiveProject())
 }

@@ -3,21 +3,19 @@ import { Todo } from './Todo'
 
 const main = document.querySelector('.App__main')
 
-export const renderProjectDetails = (projects, currentProjectIndex) => {
+export const renderProjectDetails = (activeProject) => {
     // Remove all old elements
     while (main.lastElementChild) {
         main.removeChild(main.lastElementChild)
     }
 
-    // Rerender new elements
-    const activeProject = projects[currentProjectIndex]
-    const { title, todos } = activeProject
+    // Render active project
     main.append(
-        createElement('h2', {}, title),
+        createElement('h2', {}, activeProject.title),
         createElement(
             'ul',
             { class: 'todo-list' },
-            ...todos.map((todo) => Todo(todo))
+            ...activeProject.todos.map((todo) => Todo(todo))
         )
     )
 }
