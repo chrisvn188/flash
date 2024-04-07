@@ -20,6 +20,7 @@
 body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 img {
@@ -37,6 +38,10 @@ select {
 menu,
 ul {
     list-style-type: none;
+}
+
+h2 {
+    text-transform: capitalize;
 }
 
 /* CLASS SELECTORS */
@@ -67,4 +72,58 @@ ul {
     background-color: var(--component-color);
     border-right: 1px solid var(--line-color);
     padding: 2rem;
+    & > * + * {
+        margin-top: 2rem;
+    }
+}
+
+.App__main {
+    padding: 2rem;
+}
+
+.tab-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tab {
+    background-color: white;
+    border-radius: 3px;
+    border: none;
+    border-bottom: 1px solid var(--line-color);
+    width: 100%;
+    text-align: start;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.1s ease-out;
+    &:hover,
+    &.active {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    & .tab__label {
+        text-transform: capitalize;
+    }
+}
+
+.todo-list {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.todo-item {
+    background-color: var(--component-color);
+    padding: 0.5rem 1rem;
+    border-bottom: 2px solid pink;
+    border-radius: var(--round);
+}
+
+.todo__left-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }

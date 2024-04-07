@@ -1,9 +1,15 @@
-import { Header } from './Header.js'
-import { Sidebar } from './Sidebar.js'
-import { Main } from './Main.js'
+import * as Sidebar from './Sidebar'
+import * as Main from './Main'
+import mockData from '../data.json'
 
-const App = document.getElementById('app')
+let currentProjectIndex = 0
+const projects = mockData
+
+export const getProjects = () => {
+    return projects
+}
 
 export const render = () => {
-    App.append(Header, Sidebar, Main)
+    Sidebar.renderProjects(projects, currentProjectIndex)
+    Main.renderProjectDetails(projects, currentProjectIndex)
 }

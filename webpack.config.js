@@ -28,6 +28,10 @@ module.exports = {
                 test: /\.(jpeg|jpg|png|svg)$/i,
                 type: 'asset/resource',
             },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
+            },
         ],
     },
 

@@ -1,6 +1,5 @@
 import './index.css'
 import './index.html'
+import * as App from './DOM'
 
-import { render } from './DOM'
-
-document.addEventListener('DOMContentLoaded', render)
+document.addEventListener('DOMContentLoaded', App.render)
