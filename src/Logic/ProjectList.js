@@ -62,3 +62,8 @@ export const changeActiveProject = (title) => {
 export const getActiveProject = () => {
     return projects.find((p) => p.active)
 }
+
+export const deleteProject = (title) => {
+    const index = projects.findIndex((p) => p.title === title)
+    projects.splice(index, 1)
+}

@@ -41,13 +41,38 @@ export const renderProjects = (projects) => {
 
 sidebar.addEventListener('click', (e) => {
     const tab = e.target.closest('.tab')
+    const title = tab?.querySelector('.tab__label')?.textContent
+    const deleteBtn = e.target.closest('.delete-project-button')
+
+    if (deleteBtn) {
+        //-----
+        // if we delete the current active project,
+        // the next active one is set to the beginning of the new list
+
+        if (ProjectsLogic.getActiveProject().title === title) {
+            //-----
+            ProjectsLogic.deleteProject(title)
+
+            if (ProjectsLogic.getProjects().length > 0)
+                //-----
+                ProjectsLogic.changeActiveProject(
+                    ProjectsLogic.getProjects()[0].title
+                )
+            //------
+        } else ProjectsLogic.deleteProject(title)
+
+        // render active project details on Main
+        renderProjects(ProjectsLogic.getProjects())
+        MainUI.renderProjectDetails(ProjectsLogic.getActiveProject())
+
+        return
+    }
 
     if (tab) {
         // change active tab
         sidebar.querySelector('.active')?.classList.remove('active')
         tab.classList.add('active')
         // render active project details on Main
-        const title = tab.querySelector('.tab__label')?.textContent
         ProjectsLogic.changeActiveProject(title)
         MainUI.renderProjectDetails(ProjectsLogic.getActiveProject())
     }

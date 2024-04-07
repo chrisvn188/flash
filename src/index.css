@@ -98,7 +98,15 @@ h2 {
     padding: 0.5rem;
     cursor: pointer;
     transition: all 0.1s ease-out;
-    &:hover,
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+        background-color: rgb(255, 179, 205);
+        color: white;
+    }
+
     &.active {
         background-color: var(--primary-color);
         color: white;
@@ -131,4 +139,16 @@ h2 {
 .project-creating-input {
     padding: 0.5rem;
     margin-bottom: 1rem;
+}
+
+.delete-project-button {
+    border: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    display: grid;
+    place-content: center;
+    border-radius: 50%;
+    color: white;
+    background-color: rgb(255, 67, 67);
+    cursor: pointer;
 }

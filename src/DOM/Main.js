@@ -10,12 +10,16 @@ export const renderProjectDetails = (activeProject) => {
     }
 
     // Render active project
-    main.append(
-        createElement('h2', {}, activeProject.title),
-        createElement(
-            'ul',
-            { class: 'todo-list' },
-            ...activeProject.todos.map((todo) => Todo(todo))
+    if (activeProject) {
+        main.append(
+            createElement('h2', {}, activeProject.title),
+            createElement(
+                'ul',
+                { class: 'todo-list' },
+                ...activeProject.todos.map((todo) => Todo(todo))
+            )
         )
-    )
+    } else {
+        main.append(createElement('p', null, 'No active project here'))
+    }
 }
