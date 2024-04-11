@@ -1,5 +1,5 @@
 import './index.css'
 import './index.html'
-import * as App from './DOM'
+import app from './app'
 
-document.addEventListener('DOMContentLoaded', App.render)
+console.log(app)

@@ -111,6 +111,7 @@ h2 {
         background-color: var(--primary-color);
         color: white;
     }
+
     & .tab__label {
         text-transform: capitalize;
     }
@@ -130,7 +131,8 @@ h2 {
     border-radius: var(--round);
 }
 
-.todo__left-group {
+.todo__left-group,
+.todo__right-group {
     display: flex;
     align-items: center;
     gap: 1rem;
