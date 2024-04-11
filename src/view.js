@@ -27,13 +27,13 @@ export default class View {
             class: 'project-form__input',
             placeholder: 'eg: Work',
         })
-        this.submitCreatingProjectButton = this.createElement(
+        this.submitProjectButton = this.createElement(
             'button',
             { class: 'project-form__button', type: 'submit' },
             'Create'
         )
         this.projectList = this.createElement('menu', { class: 'project-list' })
-        this.form.append(this.projectInput, this.submitCreatingProjectButton)
+        this.form.append(this.projectInput, this.submitProjectButton)
         this.projectsSection.append(
             this.projectsSectionHeading,
             this.form,
@@ -49,7 +49,16 @@ export default class View {
         this.app.append(this.header, this.sidebar, this.main)
     }
 
+    clearProjectInput() {
+        this.projectInput.value = ''
+    }
+
     displayProjects(projects) {
+        // clear all old children then display new ones
+        while (this.projectList.firstChild) {
+            this.projectList.removeChild(this.projectList.firstChild)
+        }
+
         this.projectList.append(
             ...projects.map((p) => {
                 const listItem = this.createElement('li', {
@@ -70,6 +79,17 @@ export default class View {
                 return listItem
             })
         )
+    }
+
+    bindAddProject(handler) {
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const text = e.target.querySelector('input').value
+            if (text) {
+                handler(text)
+                this.clearProjectInput()
+            }
+        })
     }
 
     getElement(selector) {

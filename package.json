@@ -21,6 +21,8 @@
         "webpack-dev-server": "^5.0.4"
     },
     "dependencies": {
-        "remixicon": "^4.2.0"
+        "date-fns": "^3.6.0",
+        "remixicon": "^4.2.0",
+        "uid": "^2.0.2"
     }
 }

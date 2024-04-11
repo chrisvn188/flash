@@ -1,7 +1,24 @@
+import { format } from 'date-fns'
+import { uid } from 'uid'
+
 export default class Model {
     constructor() {
         this._projects = [
-            { name: 'work', todos: [] },
+            {
+                name: 'work',
+                todos: [
+                    {
+                        id: uid(),
+                        title: 'Create a todoapp',
+                        dueDate: format(new Date(), 'MM/dd/yyyy'),
+                    },
+                    {
+                        id: uid(),
+                        title: 'Have a meeting at 3pm',
+                        dueDate: format(new Date(), 'MM/dd/yyyy'),
+                    },
+                ],
+            },
             { name: 'personal', todos: [] },
             { name: 'study', todos: [] },
         ]
