@@ -3,6 +3,7 @@ export default class Model {
         this._projects = [
             { name: 'work', todos: [] },
             { name: 'personal', todos: [] },
+            { name: 'study', todos: [] },
         ]
     }
     get projects() {
