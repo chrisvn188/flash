@@ -54,11 +54,12 @@ export default class View {
     }
 
     displayProjects(projects) {
-        // clear all old children then display new ones
+        // clear all old children
         while (this.projectList.firstChild) {
             this.projectList.removeChild(this.projectList.firstChild)
         }
 
+        // display new ones
         this.projectList.append(
             ...projects.map((p) => {
                 const listItem = this.createElement('li', {
@@ -71,7 +72,14 @@ export default class View {
                     this.createElement('i', {
                         class: 'tab__icon ri-file-list-2-line',
                     }),
-                    this.createElement('span', { class: 'tab__label' }, p.name)
+                    this.createElement('span', { class: 'tab__label' }, p.name),
+                    this.createElement(
+                        'button',
+                        { class: 'delete-project-button' },
+                        this.createElement('i', {
+                            class: 'ri-delete-bin-6-line',
+                        })
+                    )
                 )
 
                 listItem.append(tab)
@@ -84,10 +92,18 @@ export default class View {
     bindAddProject(handler) {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault()
-            const text = e.target.querySelector('input').value
+            const text = e.target.firstChild.value
             if (text) {
                 handler(text)
                 this.clearProjectInput()
+            }
+        })
+    }
+
+    bindDeleteProject(handler) {
+        this.projectList.addEventListener('click', (e) => {
+            if (e.target.parentElement.className === 'delete-project-button') {
+                handler(e.target.parentElement.previousSibling.textContent)
             }
         })
     }
