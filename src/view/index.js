@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import LogoSrc from '../assets/images/logo.png'
 
 export default class View {
@@ -87,7 +88,6 @@ export default class View {
     }
 
     changeActiveProject(name) {
-        console.log(name)
         for (let child of this.projectList.children) {
             child.classList.remove('active')
             if (child.querySelector('.tab__label').textContent === name) {
@@ -100,6 +100,31 @@ export default class View {
         while (this.main.firstChild) {
             this.main.removeChild(this.main.firstChild)
         }
+
+        const mainHeading = this.createElement('h2', {}, currentProject.name)
+
+        const form = this.createElement('form', {
+            class: 'add-todo-form',
+            id: 'add-todo-form',
+        })
+        const titleInput = this.createElement('input', {
+            type: 'text',
+            placeholder: 'Enter a task...',
+            required: true,
+            name: 'todoTitle',
+        })
+        const dateInput = this.createElement('input', {
+            type: 'date',
+            required: true,
+            name: 'todoDue',
+        })
+        const submitButton = this.createElement(
+            'button',
+            { type: 'submit' },
+            'Create'
+        )
+        form.append(titleInput, dateInput, submitButton)
+
         const todos = currentProject.todos
         const todoList = this.createElement('ul', { class: 'todo-list' })
         todoList.append(
@@ -117,11 +142,18 @@ export default class View {
                 todo.complete
                     ? titleSpan.append(strike)
                     : (titleSpan.textContent = todo.title)
-                li.append(checkbox, titleSpan)
+                const deleteButton = this.createElement(
+                    'button',
+                    { class: 'delete-todo-button' },
+                    this.createElement('i', { class: 'ri-delete-bin-5-line' })
+                )
+
+                li.append(checkbox, titleSpan, deleteButton)
+
                 return li
             })
         )
-        this.main.append(todoList)
+        this.main.append(mainHeading, form, todoList)
     }
 
     bindClickProjectItem(handler) {
@@ -141,6 +173,26 @@ export default class View {
             if (e.target.type === 'checkbox') {
                 handler(e.target.parentElement.id)
             }
+        })
+    }
+
+    bindDeleteTodo(handler) {
+        this.main.addEventListener('click', (e) => {
+            if (e.target.closest('.delete-todo-button')) {
+                handler(
+                    e.target.closest('.delete-todo-button').parentElement.id
+                )
+            }
+        })
+    }
+
+    bindAddTodo(handler) {
+        this.main.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const data = new FormData(e.target)
+            const title = data.get('todoTitle')
+            const dueDate = format(data.get('todoDue'), 'MMMM/dd/yyyy')
+            handler(title, dueDate)
         })
     }
 

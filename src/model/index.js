@@ -28,24 +28,6 @@ export default class Model {
                 ],
                 custom: false,
             },
-            {
-                name: 'today',
-                todos: [
-                    {
-                        id: uid(),
-                        title: 'Wake up at 4pm',
-                        dueDate: format(new Date(), 'MMMM/dd/yyyy'),
-                        complete: false,
-                    },
-                    {
-                        id: uid(),
-                        title: 'Make 150$ today',
-                        dueDate: format(new Date(), 'MMMM/dd/yyyy'),
-                        complete: false,
-                    },
-                ],
-                custom: false,
-            },
         ]
         this.currentProjectName = 'inbox'
     }
@@ -87,6 +69,32 @@ export default class Model {
                             todo.id === id ? !todo.complete : todo.complete,
                     }
                 }),
+            }
+        })
+        this.onProjectListChanged(this.projects)
+        this.onCurrentProjectNameChanged(this.currentProjectName)
+    }
+
+    deleteTodo(id) {
+        this.projects = this.projects.map((project) => {
+            return {
+                ...project,
+                todos: project.todos.filter((todo) => todo.id !== id),
+            }
+        })
+        this.onProjectListChanged(this.projects)
+        this.onCurrentProjectNameChanged(this.currentProjectName)
+    }
+
+    addTodo(title, dueDate) {
+        const newTodo = { id: uid(), title, dueDate, complete: false }
+        this.projects = this.projects.map((project) => {
+            return {
+                ...project,
+                todos:
+                    project.name === this.currentProjectName
+                        ? [...project.todos, newTodo]
+                        : project.todos,
             }
         })
         this.onProjectListChanged(this.projects)

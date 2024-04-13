@@ -1,3 +1,6 @@
+import { format } from 'date-fns'
+import { uid } from 'uid'
+
 export default class Controller {
     constructor(model, view) {
         this.model = model
@@ -33,6 +36,14 @@ export default class Controller {
         this.model.toggleTodo(id)
     }
 
+    handleDeleteTodo = (id) => {
+        this.model.deleteTodo(id)
+    }
+
+    handleAddTodo = (title, dueDate) => {
+        this.model.addTodo(title, dueDate)
+    }
+
     render = () => {
         this.onProjectListChanged(this.model.projects)
         this.onCurrentProjectNameChanged(this.model.currentProjectName)
@@ -44,5 +55,7 @@ export default class Controller {
         this.view.bindAddProject(this.handleAddProject)
         this.view.bindDeleteProject(this.handleDeleteProject)
         this.view.bindToggleTodo(this.handleToggleTodo)
+        this.view.bindDeleteTodo(this.handleDeleteTodo)
+        this.view.bindAddTodo(this.handleAddTodo)
     }
 }
