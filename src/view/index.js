@@ -100,16 +100,24 @@ export default class View {
         while (this.main.firstChild) {
             this.main.removeChild(this.main.firstChild)
         }
-        console.log(currentProject)
         const todos = currentProject.todos
         const todoList = this.createElement('ul', { class: 'todo-list' })
         todoList.append(
             ...todos.map((todo) => {
-                const li = this.createElement(
-                    'li',
-                    { class: 'todo-item' },
-                    todo.title
-                )
+                const li = this.createElement('li', { class: 'todo-item' })
+                li.id = todo.id
+                const checkbox = this.createElement('input', {
+                    type: 'checkbox',
+                })
+                checkbox.checked = todo.complete
+                const titleSpan = this.createElement('span', {
+                    class: 'todo__title',
+                })
+                const strike = this.createElement('s', {}, todo.title)
+                todo.complete
+                    ? titleSpan.append(strike)
+                    : (titleSpan.textContent = todo.title)
+                li.append(checkbox, titleSpan)
                 return li
             })
         )
@@ -125,6 +133,14 @@ export default class View {
                         .querySelector('.tab__label').textContent
                 )
             } else return
+        })
+    }
+
+    bindToggleTodo(handler) {
+        this.main.addEventListener('click', (e) => {
+            if (e.target.type === 'checkbox') {
+                handler(e.target.parentElement.id)
+            }
         })
     }
 

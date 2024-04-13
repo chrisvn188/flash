@@ -11,16 +11,19 @@ export default class Model {
                         id: uid(),
                         title: 'Create a todoapp',
                         dueDate: format(new Date(), 'MMMM/dd/yyyy'),
+                        complete: true,
                     },
                     {
                         id: uid(),
                         title: 'Learn to code',
                         dueDate: format(new Date(), 'MMMM/dd/yyyy'),
+                        complete: false,
                     },
                     {
                         id: uid(),
                         title: 'Clean the house',
                         dueDate: format(new Date(), 'MMMM/dd/yyyy'),
+                        complete: false,
                     },
                 ],
                 custom: false,
@@ -32,11 +35,13 @@ export default class Model {
                         id: uid(),
                         title: 'Wake up at 4pm',
                         dueDate: format(new Date(), 'MMMM/dd/yyyy'),
+                        complete: false,
                     },
                     {
                         id: uid(),
                         title: 'Make 150$ today',
                         dueDate: format(new Date(), 'MMMM/dd/yyyy'),
+                        complete: false,
                     },
                 ],
                 custom: false,
@@ -68,6 +73,23 @@ export default class Model {
     setCurrentActiveProject(name) {
         const lowercaseName = name.toLowerCase()
         this.currentProjectName = lowercaseName
+        this.onCurrentProjectNameChanged(this.currentProjectName)
+    }
+
+    toggleTodo(id) {
+        this.projects = this.projects.map((project) => {
+            return {
+                ...project,
+                todos: project.todos.map((todo) => {
+                    return {
+                        ...todo,
+                        complete:
+                            todo.id === id ? !todo.complete : todo.complete,
+                    }
+                }),
+            }
+        })
+        this.onProjectListChanged(this.projects)
         this.onCurrentProjectNameChanged(this.currentProjectName)
     }
 }

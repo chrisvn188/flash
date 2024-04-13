@@ -29,6 +29,10 @@ export default class Controller {
         this.model.setCurrentActiveProject(name)
     }
 
+    handleToggleTodo = (id) => {
+        this.model.toggleTodo(id)
+    }
+
     render = () => {
         this.onProjectListChanged(this.model.projects)
         this.onCurrentProjectNameChanged(this.model.currentProjectName)
@@ -39,5 +43,6 @@ export default class Controller {
         this.view.bindClickProjectItem(this.handleChangeActiveItem)
         this.view.bindAddProject(this.handleAddProject)
         this.view.bindDeleteProject(this.handleDeleteProject)
+        this.view.bindToggleTodo(this.handleToggleTodo)
     }
 }
