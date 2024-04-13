@@ -1,4 +1,4 @@
-import LogoSrc from './assets/images/logo.png'
+import LogoSrc from '../assets/images/logo.png'
 
 export default class View {
     constructor() {
@@ -25,15 +25,10 @@ export default class View {
         this.form = this.createElement('form', { class: 'project-form' })
         this.projectInput = this.createElement('input', {
             class: 'project-form__input',
-            placeholder: 'eg: Work',
+            placeholder: 'Create a new project',
         })
-        this.submitProjectButton = this.createElement(
-            'button',
-            { class: 'project-form__button', type: 'submit' },
-            'Create'
-        )
         this.projectList = this.createElement('menu', { class: 'project-list' })
-        this.form.append(this.projectInput, this.submitProjectButton)
+        this.form.append(this.projectInput)
         this.projectsSection.append(
             this.projectsSectionHeading,
             this.form,
@@ -73,13 +68,15 @@ export default class View {
                         class: 'tab__icon ri-file-list-2-line',
                     }),
                     this.createElement('span', { class: 'tab__label' }, p.name),
-                    this.createElement(
-                        'button',
-                        { class: 'delete-project-button' },
-                        this.createElement('i', {
-                            class: 'ri-delete-bin-6-line',
-                        })
-                    )
+                    p.custom
+                        ? this.createElement(
+                              'button',
+                              { class: 'delete-project-button' },
+                              this.createElement('i', {
+                                  class: 'ri-delete-bin-6-line',
+                              })
+                          )
+                        : ''
                 )
 
                 listItem.append(tab)
@@ -89,14 +86,53 @@ export default class View {
         )
     }
 
+    changeActiveProject(name) {
+        console.log(name)
+        for (let child of this.projectList.children) {
+            child.classList.remove('active')
+            if (child.querySelector('.tab__label').textContent === name) {
+                child.classList.add('active')
+            }
+        }
+    }
+
+    displayCurrentProjectTodos(currentProject) {
+        while (this.main.firstChild) {
+            this.main.removeChild(this.main.firstChild)
+        }
+        console.log(currentProject)
+        const todos = currentProject.todos
+        const todoList = this.createElement('ul', { class: 'todo-list' })
+        todoList.append(
+            ...todos.map((todo) => {
+                const li = this.createElement(
+                    'li',
+                    { class: 'todo-item' },
+                    todo.title
+                )
+                return li
+            })
+        )
+        this.main.append(todoList)
+    }
+
+    bindClickProjectItem(handler) {
+        this.projectList.addEventListener('click', (e) => {
+            if (e.target.closest('.project-item')) {
+                handler(
+                    e.target
+                        .closest('.project-item')
+                        .querySelector('.tab__label').textContent
+                )
+            } else return
+        })
+    }
+
     bindAddProject(handler) {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault()
-            const text = e.target.firstChild.value
-            if (text) {
-                handler(text)
-                this.clearProjectInput()
-            }
+            handler(e.target.firstChild.value)
+            this.clearProjectInput()
         })
     }
 
