@@ -1,28 +1,35 @@
 {
-    "name": "flash",
-    "version": "1.0.0",
-    "description": "A todo app to boost your productivity.",
-    "main": "index.js",
-    "scripts": {
-        "start": "webpack serve --open",
-        "build": "webpack"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "css-loader": "^7.0.0",
-        "html-loader": "^5.0.0",
-        "html-webpack-plugin": "^5.6.0",
-        "json-loader": "^0.5.7",
-        "style-loader": "^3.3.4",
-        "webpack": "^5.91.0",
-        "webpack-cli": "^5.1.4",
-        "webpack-dev-server": "^5.0.4"
-    },
-    "dependencies": {
-        "date-fns": "^3.6.0",
-        "remixicon": "^4.2.0",
-        "uid": "^2.0.2"
-    }
+  "name": "flash",
+  "version": "1.0.0",
+  "description": "A todo app to boost your productivity.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
+    "@eslint/js": "^9.0.0",
+    "css-loader": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "globals": "^15.0.0",
+    "html-loader": "^5.0.0",
+    "html-webpack-plugin": "^5.6.0",
+    "json-loader": "^0.5.7",
+    "prettier": "^3.2.5",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "remixicon": "^4.2.0",
+    "uid": "^2.0.2"
+  }
 }
