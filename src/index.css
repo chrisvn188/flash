@@ -1,7 +1,7 @@
 :root {
   --primary-color: #6f2cf4;
   --component-color: #edeeff;
-  --round: 3px;
+  --round: 10px;
   --red: #f42c2c;
   --yellow: #f4b02c;
   --green: #4d8f0a;
@@ -89,8 +89,10 @@ h2 {
 }
 
 .project-form__input {
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem;
   width: 100%;
+  border: 1px solid var(--primary-color);
+  border-radius: var(--round);
 }
 
 .project-form__button {
@@ -193,11 +195,11 @@ h2 {
   }
 }
 
-.tab__label {
+.project-title {
   text-transform: capitalize;
 }
 
-.tab__icon {
+i {
   font-size: 1.2rem;
 }
 

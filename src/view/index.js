@@ -31,8 +31,10 @@ export default class View {
 
     this.projectInput = this.createElement('input', {
       class: 'project-form__input',
-      placeholder: 'Create a new project',
+      placeholder: 'Eg. Work',
     })
+
+    this.projectInput.required = true
 
     this.projectList = this.createElement('menu', { class: 'project-list' })
 
@@ -72,20 +74,30 @@ export default class View {
           class: 'project-item',
         })
 
+        const projectIcon = this.createElement('i', {
+          class: 'tab__icon ri-file-list-2-line',
+        })
+
+        const projectTitle = this.createElement(
+          'span',
+          { class: 'project-title' },
+          p.name
+        )
+
+        const deleteIcon = this.createElement('i', {
+          class: 'ri-delete-bin-6-line',
+        })
+
         const tab = this.createElement(
           'button',
           { class: 'tab' },
-          this.createElement('i', {
-            class: 'tab__icon ri-file-list-2-line',
-          }),
-          this.createElement('span', { class: 'tab__label' }, p.name),
+          projectIcon,
+          projectTitle,
           p.custom
             ? this.createElement(
                 'button',
                 { class: 'delete-project-button' },
-                this.createElement('i', {
-                  class: 'ri-delete-bin-6-line',
-                })
+                deleteIcon
               )
             : ''
         )
@@ -100,7 +112,7 @@ export default class View {
   changeActiveProject(name) {
     for (let child of this.projectList.children) {
       child.classList.remove('active')
-      if (child.querySelector('.tab__label').textContent === name) {
+      if (child.querySelector('.project-title').textContent === name) {
         child.classList.add('active')
       }
     }
@@ -117,41 +129,52 @@ export default class View {
       class: 'add-todo-form',
       id: 'add-todo-form',
     })
+
     const titleInput = this.createElement('input', {
       type: 'text',
       placeholder: 'Enter a task...',
       required: true,
       name: 'todoTitle',
     })
+
     const dateInput = this.createElement('input', {
       type: 'date',
       required: true,
       name: 'todoDue',
     })
+
     const submitButton = this.createElement(
       'button',
       { type: 'submit' },
       'Create'
     )
+
     form.append(titleInput, dateInput, submitButton)
 
     const todos = currentProject.todos
+
     const todoList = this.createElement('ul', { class: 'todo-list' })
+
     todoList.append(
       ...todos.map(todo => {
         const li = this.createElement('li', { class: 'todo-item' })
         li.id = todo.id
+
         const checkbox = this.createElement('input', {
           type: 'checkbox',
         })
+
         checkbox.checked = todo.complete
         const titleSpan = this.createElement('span', {
           class: 'todo__title',
         })
+
         const strike = this.createElement('s', {}, todo.title)
+
         todo.complete
           ? titleSpan.append(strike)
           : (titleSpan.textContent = todo.title)
+
         const deleteButton = this.createElement(
           'button',
           { class: 'delete-todo-button' },
@@ -170,7 +193,7 @@ export default class View {
     this.projectList.addEventListener('click', e => {
       if (e.target.closest('.project-item')) {
         handler(
-          e.target.closest('.project-item').querySelector('.tab__label')
+          e.target.closest('.project-item').querySelector('.project-title')
             .textContent
         )
       } else return
@@ -206,8 +229,10 @@ export default class View {
   bindAddProject(handler) {
     this.form.addEventListener('submit', e => {
       e.preventDefault()
-      handler(e.target.firstChild.value)
-      this.clearProjectInput()
+      if (e.target.firstChild.value) {
+        handler(e.target.firstChild.value)
+        this.clearProjectInput()
+      }
     })
   }
 
@@ -224,15 +249,22 @@ export default class View {
   }
 
   createElement(type, props, ...children) {
-    const element = document.createElement(type)
-    for (let key in props) {
-      element.setAttribute(key, props[key])
+    let element = document.createElement(type)
+
+    if (props) {
+      for (let key in props) {
+        element.setAttribute(key, props[key])
+      }
     }
+
     for (let child of children) {
-      typeof child === 'string'
-        ? element.appendChild(document.createTextNode(child))
-        : element.appendChild(child)
+      if (typeof child !== 'string') {
+        element.appendChild(child)
+      } else {
+        element.appendChild(document.createTextNode(child))
+      }
     }
+
     return element
   }
 }
